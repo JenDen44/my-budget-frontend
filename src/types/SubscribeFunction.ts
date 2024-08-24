@@ -1,0 +1,1 @@
+export type TSubscribeFunction<T> = (data: T) => void;

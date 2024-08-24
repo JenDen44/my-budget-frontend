@@ -58,59 +58,48 @@
               "pathGroupsExcludedImportTypes": ["builtin", "react"],
               "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
               "pathGroups": [
-                  {
-                      "pattern": "react",
-                      "group": "external"
-                  },
-                  {
-                      "pattern": "src/**",
-                      "group": "external",
-                      "position": "after"
-                  },
-                  {
-                      "pattern": "types/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "helpers/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "hooks/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "api/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "quires/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "localization/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "icons/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "components/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "pages/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "theme/**",
-                      "group": "internal"
-                  },
-                  {
-                      "pattern": "router/**",
-                      "group": "internal"
-                  }
+                    {
+                        "pattern": "react",
+                        "group": "external"
+                    },
+                    {
+                        "pattern": "src/**",
+                        "group": "external",
+                        "position": "after"
+                    },
+                    {
+                        "pattern": "types/**",
+                        "group": "external",
+                        "position": "after"
+                    },
+                    {
+                        "pattern": "client/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "entities/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "api/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "stores/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "components/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "pages/**",
+                        "group": "internal"
+                    },
+                    {
+                        "pattern": "router/**",
+                        "group": "internal"
+                    }
               ],
               "alphabetize": {
                   "order": "ignore",
@@ -135,7 +124,8 @@
           "condition": "parens-new-line",
           "logical": "parens-new-line",
           "prop": "parens-new-line"
-      }]
+      }],
+     "@typescript-eslint/explicit-function-return-type": "error"
   },
   "settings": {
       "react": {
