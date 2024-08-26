@@ -2,65 +2,70 @@ import { observer, useLocalObservable } from "mobx-react";
 import { RegistrationForm, useRegistrationForm } from "./RegistrationForm";
 import { RegistrationStore } from "./store";
 import { FormProvider } from "react-hook-form";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Paper, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useNavigate } from "react-router-dom";
+import { Navigate, Link as RouterLink } from "react-router-dom";
+import { useAuth } from "auth";
 
 export const Registration = observer(() => {
-    const navigate = useNavigate();
-    const store = useLocalObservable(() => new RegistrationStore(navigate));
+    const store = useLocalObservable(() => new RegistrationStore());
     const form = useRegistrationForm();
     const onSubmit = form.handleSubmit(store.registration);
+    const isAuthorized = useAuth();
+
+    if (isAuthorized) {
+        return <Navigate to="/" />;
+    }
 
     return (
-    <FormProvider {...form}>
-        <Box
-            sx={{
-                width: '100dvw',
-                height: '100dvh',
-                overflow: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                p: 2
-            }}
-        >
+        <FormProvider {...form}>
             <Box
-                component="form"
-                onSubmit={onSubmit}
                 sx={{
-                    width: '100%',
-                    maxWidth: 480,
-                    border: '1px solid',
-                    borderRadius: 4,
-                    px: 4,
-                    py: 6,
+                    width: '100dvw',
+                    height: '100dvh',
+                    overflow: 'auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 2
                 }}
             >
-                <Typography variant="h3" sx={{ mb: 4 }}>Регистрация</Typography>
-                <RegistrationForm />
-                <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    sx={{ mt: 6 }}
-                    loading={store.loadingStore.isLoading}
+                <Paper
+                    component="form"
+                    onSubmit={onSubmit}
+                    sx={{
+                        width: '100%',
+                        maxWidth: 480,
+                        border: '1px solid',
+                        borderRadius: 4,
+                        px: 4,
+                        py: 6,
+                    }}
                 >
-                    Регистрация
-                </LoadingButton>
-                <Box sx={{ display: 'flex', justifyContent: 'end', mt: 1 }}>
-                    <Link
-                        component="button"
-                        variant="body2"
-                        underline="hover"
-                        onClick={store.goToLogin}
+                    <Typography variant="h3" sx={{ mb: 4 }}>Регистрация</Typography>
+                    <RegistrationForm />
+                    <LoadingButton
+                        type="submit"
+                        variant="contained"
+                        size="large"
+                        fullWidth
+                        sx={{ mt: 6 }}
+                        loading={store.loadingStore.isLoading}
                     >
-                        Авторизоваться
-                    </Link>
-                </Box>
+                        Регистрация
+                    </LoadingButton>
+                    <Box sx={{ display: 'flex', justifyContent: 'end', mt: 1 }}>
+                        <Link
+                            component={RouterLink}
+                            variant="body2"
+                            underline="hover"
+                            to="/login"
+                        >
+                            Авторизоваться
+                        </Link>
+                    </Box>
+                </Paper>
             </Box>
-        </Box>
-    </FormProvider>
+        </FormProvider>
     );
 });

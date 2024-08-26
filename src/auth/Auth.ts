@@ -14,7 +14,7 @@ export class Auth {
 
     private tokens?: TTokens;
 
-    private subscribers = new Set<TSubscribeFunction<TTokens>>()
+    private subscribers = new Set<TSubscribeFunction<TTokens | undefined>>()
 
     private isTokens = (data: unknown): data is TTokens =>
         !!data &&
@@ -69,10 +69,12 @@ export class Auth {
     logout = () => {
         this.tokens = undefined;
 
+        this.subscribers.forEach(fn => fn(undefined));
+
         return Local.tokens.removeItem(TOKENS);
     }
 
-    subscribe = (fn: TSubscribeFunction<TTokens>) => {
+    subscribe = (fn: TSubscribeFunction<TTokens | undefined>) => {
         this.getTokens().then(fn);
         this.subscribers.add(fn);
     }

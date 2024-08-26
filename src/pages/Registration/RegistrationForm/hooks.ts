@@ -8,9 +8,9 @@ export const useRegistrationForm = () => useForm<TRegistrationFormValue>({
 });
 
 export const useRegistrationFormFields = () => {
-    const usernameField = useController<TRegistrationFormValue>({ name: 'username' });
-    const passwordField = useController<TRegistrationFormValue>({ name: 'password' });
-    const confirmPasswordField = useController<TRegistrationFormValue>({ name: 'confirmPassword' });
+    const usernameField = useController<TRegistrationFormValue>({ name: 'username', defaultValue: '' });
+    const passwordField = useController<TRegistrationFormValue>({ name: 'password', defaultValue: '' });
+    const confirmPasswordField = useController<TRegistrationFormValue>({ name: 'confirmPassword', defaultValue: '' });
 
     return {
         username: {

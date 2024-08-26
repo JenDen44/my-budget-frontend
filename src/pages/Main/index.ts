@@ -1,1 +1,1 @@
-export * from './Purchases';
+export * from './Main';

@@ -1,18 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useMemo } from 'react';
-import { unauthorizedRoutes } from './unauthorizedRoutes';
-import { useAuth } from 'auth';
-import { authorizedRoutes } from './authorizedRoutes';
+import { routes } from './routes';
 
 export const Router = () => {
-    const isAuthorized = useAuth();
-    const router = useMemo(() => {
-        if (isAuthorized) {
-            return createBrowserRouter(authorizedRoutes);
-        }
-
-        return createBrowserRouter(unauthorizedRoutes)
-    }, [isAuthorized]);
+    const router = useMemo(() => createBrowserRouter(routes), []);
 
     return <RouterProvider router={ router } />;
 };

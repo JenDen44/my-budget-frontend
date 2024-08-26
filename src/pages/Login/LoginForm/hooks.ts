@@ -8,8 +8,8 @@ export const useLoginForm = () => useForm<TLoginFormValue>({
 });
 
 export const useLoginFormFields = () => {
-    const usernameField = useController<TLoginFormValue>({ name: 'username' });
-    const passwordField = useController<TLoginFormValue>({ name: 'password' });
+    const usernameField = useController<TLoginFormValue>({ name: 'username', defaultValue: '' });
+    const passwordField = useController<TLoginFormValue>({ name: 'password', defaultValue: '' });
 
     return {
         username: {
