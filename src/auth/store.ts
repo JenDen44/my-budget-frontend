@@ -1,14 +1,14 @@
-import type { TTokens } from "entities";
-import { Auth } from "./Auth";
-import { makeAutoObservable } from "mobx";
-import { LoadingStore } from "stores";
+import { makeAutoObservable } from 'mobx';
+import type { TTokens } from 'entities';
+import { LoadingStore } from 'stores';
+import { Auth } from './Auth';
 
 export class AuthProviderStore {
     tokens?: TTokens = undefined;
 
     loading = new LoadingStore();
 
-    get isAuthorized() {
+    get isAuthorized(): boolean {
         return !!this.tokens;
     }
 

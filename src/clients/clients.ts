@@ -5,26 +5,26 @@ import { UnauthorizedClient } from './UnauthorizedClient';
 class Clients {
     private static _unauthorized: UnauthorizedClient;
 
-    static get unauthorized() {
+    static get unauthorized(): UnauthorizedClient {
         Clients._unauthorized = Clients._unauthorized || new UnauthorizedClient();
 
-        return Clients._unauthorized.instance;
+        return Clients._unauthorized;
     }
 
     private static _authorized: AuthorizedClient;
 
-    static get authorized() {
+    static get authorized(): AuthorizedClient {
         Clients._authorized = Clients._authorized || new AuthorizedClient();
 
-        return Clients._authorized.instance;
+        return Clients._authorized;
     }
 
     private static _refresh: RefreshClient;
 
-    static get refresh() {
+    static get refresh(): RefreshClient {
         Clients._refresh = Clients._refresh || new RefreshClient();
 
-        return Clients._refresh.instance;
+        return Clients._refresh;
     }
 }
 

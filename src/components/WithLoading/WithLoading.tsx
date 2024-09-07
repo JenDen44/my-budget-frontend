@@ -1,31 +1,32 @@
-import { Box, CircularProgress } from "@mui/material";
-import type { TWithLoadingProps } from "./types";
+import { Box, CircularProgress } from '@mui/material';
+import type { ReactElement } from 'react';
+import type { TWithLoadingProps } from './types';
 
-export const WithLoading = (props: TWithLoadingProps) => {
+export const WithLoading = (props: TWithLoadingProps): ReactElement => {
     const { isLoading, children } = props;
 
     if (isLoading) {
         return (
             <Box
-                sx={{
+                sx={ {
                     display: 'flex',
                     flexGrow: 1,
                     minHeight: 0,
                     justifyContent: 'center',
                     alignItems: 'center'
-                }}
+                } }
             >
                 <CircularProgress
-                    sx={{
+                    sx={ {
                         maxWidth: 240,
                         maxHeight: 240,
                         width: '100%',
                         height: '100%'
-                    }}
+                    } }
                 />
             </Box>
         );
     }
 
     return children;
-}
+};

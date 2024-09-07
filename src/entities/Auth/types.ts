@@ -1,5 +1,5 @@
-import type { z } from "zod";
-import type { tokensSchema } from "./schema";
+import type { z } from 'zod';
+import type { tokensSchema } from './schema';
 
 export type TLoginData = {
     username: string;

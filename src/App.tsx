@@ -5,23 +5,29 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import type { ReactElement } from 'react';
 import { AuthProvider } from 'auth';
 import { Router } from 'router';
 
-export const App = () => {
+export const App = (): ReactElement => {
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'auto',
-            width: '100dvw',
-            height: '100dvh',
-            bgcolor: 'background.default'
-        }}>
-            <AuthProvider>
+        <LocalizationProvider dateAdapter={ AdapterDateFns }>
+            <Box sx={ {
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'auto',
+                width: '100dvw',
+                height: '100dvh',
+                bgcolor: 'background.default'
+            } }
+            >
                 <CssBaseline />
-                <Router />
-            </AuthProvider>
-        </Box>
+                <AuthProvider>
+                    <Router />
+                </AuthProvider>
+            </Box>
+        </LocalizationProvider>
     );
-}
+};

@@ -1,9 +1,9 @@
-import { useController, useForm } from 'react-hook-form';
-import type { TLoginFormValue } from './types';
+import { useController, useForm, type UseFormReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { TLoginFormValue } from './types';
 import { loginFormSchema } from './schema';
 
-export const useLoginForm = () => useForm<TLoginFormValue>({
+export const useLoginForm = (): UseFormReturn<TLoginFormValue> => useForm<TLoginFormValue>({
     resolver: zodResolver(loginFormSchema)
 });
 
@@ -26,5 +26,5 @@ export const useLoginFormFields = () => {
             helperText: passwordField.fieldState.error?.message,
             label: 'Пароль'
         }
-    }
+    };
 };

@@ -4,15 +4,15 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), , tsconfigPaths()],
-  server:{
-    proxy: {
-        '/api': {
-            target: 'http://192.168.0.228:8087/my_budget',
-            changeOrigin: true,
-            secure: false,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-    }
-},
-})
+    plugins: [ react(), tsconfigPaths() ],
+    server:{
+        proxy: {
+            '/api': {
+                target: 'http://192.168.1.101:8087/my_budget',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        }
+    },
+});

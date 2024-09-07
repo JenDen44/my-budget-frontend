@@ -14,6 +14,6 @@ export class RefreshClient extends Client {
                 config.headers.Authorization = `Bearer ${ tokens.refreshToken }`;
 
                 return config;
-            })
-    }
+            });
+    };
 }

@@ -15,8 +15,8 @@ export class AuthorizedClient extends Client {
                 config.headers.Authorization = `Bearer ${ tokens.accessToken }`;
 
                 return config;
-            })
-    }
+            });
+    };
 
     private responseInterceptor = (error?: AxiosError): Promise<AxiosResponse> => {
         if (!error?.response) {
@@ -27,11 +27,11 @@ export class AuthorizedClient extends Client {
         const { status, config } = error.response;
 
         switch (status) {
-            case 401:
-                return Auth.instance.refresh()
-                    .then(() => this.instance(config));
-            default:
-                return Promise.reject(error);
+        // case 401:
+        //     return Auth.instance.refresh()
+        //         .then(() => this.instance(config));
+        default:
+            return Promise.reject(error);
         }
-    }
+    };
 }

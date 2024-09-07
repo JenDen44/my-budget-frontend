@@ -1,6 +1,6 @@
-import { Auth } from "auth"
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Auth } from 'auth';
 
 export const Logout = () => {
     const navigate = useNavigate();
@@ -10,4 +10,4 @@ export const Logout = () => {
     });
 
     return null;
-}
+};

@@ -1,7 +1,7 @@
-import { Auth } from "auth";
-import { type TLoginData } from "entities";
-import { makeAutoObservable } from "mobx";
-import { LoadingStore } from "stores";
+import { makeAutoObservable } from 'mobx';
+import { Auth } from 'auth';
+import { type TLoginData } from 'entities';
+import { LoadingStore } from 'stores';
 
 export class LoginStore {
     loadingStore = new LoadingStore();

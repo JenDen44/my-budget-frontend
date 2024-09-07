@@ -9,9 +9,9 @@ export const registrationFormSchema = z.object({
 
     if (password !== confirmPassword) {
         ctx.addIssue({
-            path: ['confirmPassword'],
+            path: [ 'confirmPassword' ],
             code: z.ZodIssueCode.custom,
             message: 'Пароли должны совпадать'
-        })
+        });
     }
 });

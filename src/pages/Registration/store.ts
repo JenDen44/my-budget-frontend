@@ -1,7 +1,7 @@
-import { type TRegistrationData } from "entities";
-import { LoadingStore } from "stores";
 import { makeAutoObservable } from 'mobx';
-import { Auth } from "auth";
+import { type TRegistrationData } from 'entities';
+import { LoadingStore } from 'stores';
+import { Auth } from 'auth';
 
 export class RegistrationStore {
     loadingStore = new LoadingStore();

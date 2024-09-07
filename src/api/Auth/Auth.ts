@@ -3,18 +3,10 @@ import type { TLoginData, TRegistrationData } from 'entities';
 import { authPaths } from './paths';
 
 export class AuthApi {
-    login = (data: TLoginData) => {
-        return clients.unauthorized.post(authPaths.login, data)
-            .then((res) => res.data);
-    };
+    login = (data: TLoginData): Promise<unknown> => clients.unauthorized.post(authPaths.login, data);
 
-    registration = (data: TRegistrationData) => {
-        return clients.unauthorized.post(authPaths.registration, data)
-            .then((res) => res.data);
-    };
+    registration = (data: TRegistrationData): Promise<unknown> =>
+        clients.unauthorized.post(authPaths.registration, data);
 
-    refresh = () => {
-        return clients.refresh.get(authPaths.refresh)
-            .then((res) => res.data);
-    };
+    refresh = (): Promise<unknown> => clients.refresh.get(authPaths.refresh);
 }

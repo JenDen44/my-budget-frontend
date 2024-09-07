@@ -3,25 +3,28 @@ import { makeAutoObservable } from 'mobx';
 export class LoadingStore {
     loadingCount = 0;
 
-    get isLoading() {
+    isFinishedOnce = false;
+
+    get isLoading(): boolean {
         return !!this.loadingCount;
-    };
+    }
+
+    get isFirstLoading(): boolean {
+        return !this.isFinishedOnce && !!this.isLoading;
+    }
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    byPromise = <T,>(promise: Promise<T>) => {
-        this.changeCount('add')
+    byPromise = <T,>(promise: Promise<T>): Promise<T> => {
+        this.loadingCount++;
 
-        return promise.finally(() => this.changeCount('subtract'));
-    }
+        return promise.finally(this.onFinally);
+    };
 
-    changeCount = (type: 'add' | 'subtract') => {
-        if (type === 'add') {
-            this.loadingCount++;
-        } else {
-            this.loadingCount--;
-        }
-    }
+    onFinally = (): void => {
+        this.isFinishedOnce = true;
+        this.loadingCount--;
+    };
 }

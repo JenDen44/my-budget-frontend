@@ -1,6 +1,6 @@
 import { useController, useForm } from 'react-hook-form';
-import type { TRegistrationFormValue } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { TRegistrationFormValue } from './types';
 import { registrationFormSchema } from './schema';
 
 export const useRegistrationForm = () => useForm<TRegistrationFormValue>({
@@ -34,5 +34,5 @@ export const useRegistrationFormFields = () => {
             helperText: confirmPasswordField.fieldState.error?.message,
             label: 'Повторите пароль'
         }
-    }
+    };
 };
