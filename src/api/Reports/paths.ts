@@ -1,11 +1,7 @@
-import type { TReportsFilter } from 'entities';
-
 class ReportsPaths {
-    static getByDate = (filter: TReportsFilter): string => `/api/reports/table/${filter.startDate}/${filter.endDate}`;
+    static reportsByDate = '/api/reports/table';
 
-    static byDate = '/api/reports/table';
-
-    static getByCategory = (filter: TReportsFilter): string => `/api/reports/chart/${filter.startDate}/${filter.endDate}`;
+    static reportsByCategory = '/api/reports/chart';
 }
 
 export const reportsPaths = ReportsPaths;

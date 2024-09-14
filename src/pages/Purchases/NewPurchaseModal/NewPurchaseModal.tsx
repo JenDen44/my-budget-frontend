@@ -11,7 +11,7 @@ export const NewPurchaseModal = (props: TNewPurchaseModalProps): ReactElement =>
     const { isLoading, byPromise } = useLoading();
     const form = usePurchaseForm();
     const onClose = (): void => {
-        form.reset();
+        form.reset({});
         onCloseProp();
     };
     const onSubmit = form.handleSubmit((data) => byPromise(purchaseFormValidator(data).then(onCreate)).then(onClose));

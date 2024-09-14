@@ -3,9 +3,9 @@ import type { TReportsFilter } from 'entities';
 import { reportsPaths } from './paths';
 
 export class ReportsApi {
-    getByDate = (filter: TReportsFilter): Promise<unknown> => clients.authorized.get(reportsPaths.getByDate(filter));
+    getByDate = (params: TReportsFilter): Promise<unknown> =>
+        clients.authorized.get(reportsPaths.reportsByDate, { params });
 
-    getByDateNew = (params: TReportsFilter): Promise<unknown> => clients.authorized.get(reportsPaths.byDate, { params });
-
-    getByCategory = (filter: TReportsFilter): Promise<unknown> => clients.authorized.get(reportsPaths.getByCategory(filter));
+    getByCategory = (params: TReportsFilter): Promise<unknown> =>
+        clients.authorized.get(reportsPaths.reportsByCategory, { params });
 }
