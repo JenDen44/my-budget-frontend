@@ -1,5 +1,6 @@
 import { observer, useLocalObservable } from 'mobx-react';
 import { Box, Button, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { WithLoading } from 'components';
 import { PurchasesStore } from './store';
 import { PurchasesTable } from './PurchasesTable';
@@ -9,6 +10,8 @@ import { DeletePurchaseModal } from './DeletePurchaseModal';
 
 export const Purchases = observer(() => {
     const store = useLocalObservable(() => new PurchasesStore());
+
+    useEffect(store.mount, []);
 
     return (
         <WithLoading isLoading={ store.loading.isFirstLoading }>
@@ -25,6 +28,14 @@ export const Purchases = observer(() => {
                     </Box>
                     <PurchasesTable
                         purchases={ store.purchases }
+                        hasNextPage={ store.hasNextPage }
+                        page={ store.page }
+                        countOnPage={ store.countOnPage }
+                        sortBy={ store.sortBy }
+                        sortDirection={ store.sortDirection }
+                        onChangePage={ store.changePage }
+                        onChangeCountOnPage={ store.changeCountOnPage }
+                        onChangeSort={ store.changeSort }
                         onEdit={ store.openEditModal }
                         onDelete={ store.openDeleteModal }
                     />

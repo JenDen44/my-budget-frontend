@@ -1,12 +1,32 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, reaction, type IReactionDisposer } from 'mobx';
 import { api } from 'api';
-import { purchasesValidator, type TNewPurchase, type TPurchase } from 'entities';
+import { purchasesValidator, type TNewPurchase, type TPurchase, type TPurchaseParams, type TPurchaseSortBy, type TSortDirection } from 'entities';
 import { LoadingStore } from 'stores';
+import { PURCHASE_COUNT_ON_PAGE } from './PurchasesTable';
 
 export class PurchasesStore {
     loading = new LoadingStore();
 
     purchases: TPurchase[] = [];
+
+    hasNextPage = false;
+
+    page = 0;
+
+    countOnPage = PURCHASE_COUNT_ON_PAGE[0];
+
+    sortBy: TPurchaseSortBy = 'purchaseDate';
+
+    sortDirection: TSortDirection = 'desc';
+
+    get params(): TPurchaseParams {
+        return {
+            pageNo: this.page,
+            pageSize: this.countOnPage,
+            sortBy: this.sortBy,
+            sortDir: this.sortDirection
+        };
+    }
 
     isOpenCreateModal = false;
 
@@ -24,15 +44,22 @@ export class PurchasesStore {
 
     constructor() {
         makeAutoObservable(this);
-
-        this.loading.byPromise(this.load());
     }
+
+    mount = (): IReactionDisposer => {
+        return reaction(
+            () => this.params,
+            () => this.loading.byPromise(this.load()),
+            { fireImmediately: true }
+        );
+    };
 
     save = (purchases: TPurchase[]): void => {
         this.purchases = purchases;
+        this.hasNextPage = this.purchases.length === this.countOnPage;
     };
 
-    load = (): Promise<void> => api.purchases.get()
+    load = (): Promise<void> => api.purchases.get(this.params)
         .then(purchasesValidator)
         .then(this.save);
 
@@ -44,6 +71,24 @@ export class PurchasesStore {
 
     delete = (id: number): Promise<void> => api.purchases.delete(id)
         .then(this.load);
+
+    changePage = (page: number): void => {
+        this.page = page;
+    };
+
+    changeCountOnPage = (countOnPage: number): void => {
+        this.page = 0;
+        this.countOnPage = countOnPage;
+    };
+
+    changeSort = (sortBy: TPurchaseSortBy): void => {
+        if (this.sortBy === sortBy) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortBy = sortBy;
+            this.sortDirection = 'desc';
+        }
+    };
 
     openCreateModal = (): void => {
         this.isOpenCreateModal = true;

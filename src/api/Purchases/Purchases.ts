@@ -1,9 +1,9 @@
 import { clients } from 'clients';
-import type { TNewPurchase } from 'entities';
+import type { TNewPurchase, TPurchaseParams } from 'entities';
 import { purchasesPaths } from './paths';
 
 export class PurchasesApi {
-    get = (): Promise<unknown> => clients.authorized.get(purchasesPaths.purchases);
+    get = (params?: TPurchaseParams): Promise<unknown> => clients.authorized.get(purchasesPaths.purchases, { params });
 
     create = (data: TNewPurchase): Promise<unknown> => clients.authorized.post(purchasesPaths.purchases, data);
 

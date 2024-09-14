@@ -1,23 +1,39 @@
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+    Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow,
+    TableSortLabel
+} from '@mui/material';
 import { Edit, Clear } from '@mui/icons-material';
-import type { ReactElement } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
 import { formatCurrency, formatDate, formatNumber } from 'helpers';
 import { PURCHASE_CATEGORY_LABELS } from '../consts';
 import type { TPurchasesTableProps } from './types';
+import { PURCHASE_CELLS, PURCHASE_COUNT_ON_PAGE } from './consts';
 
 export const PurchasesTable = (props: TPurchasesTableProps): ReactElement => {
-    const { purchases, onEdit, onDelete } = props;
+    const {
+        purchases, hasNextPage, page, countOnPage, onChangeCountOnPage: onChangeCountOnPageProp,
+        onChangePage: onChangePageProp, onEdit, onDelete, sortBy, sortDirection, onChangeSort
+    } = props;
+    const onChangePage = (_: unknown, newPage: number): void => onChangePageProp(newPage);
+    const onChangeCountOnPage = (event: ChangeEvent<HTMLInputElement>): void =>
+        onChangeCountOnPageProp(+event.target.value);
 
     return (
         <TableContainer component={ Paper }>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Дата</TableCell>
-                        <TableCell>Категория</TableCell>
-                        <TableCell align="right">Цена,&nbsp;₽</TableCell>
-                        <TableCell align="right">Количество</TableCell>
-                        <TableCell align="right">Стоимость,&nbsp;₽</TableCell>
+                        {PURCHASE_CELLS.map((cell) => (
+                            <TableCell key={ cell.key } align={ cell.align }>
+                                <TableSortLabel
+                                    active={ cell.key === sortBy }
+                                    direction={ cell.key === sortBy ? sortDirection : undefined }
+                                    onClick={ () => onChangeSort(cell.key) }
+                                >
+                                    {cell.label}
+                                </TableSortLabel>
+                            </TableCell>
+                        ))}
                         <TableCell />
                     </TableRow>
                 </TableHead>
@@ -43,6 +59,24 @@ export const PurchasesTable = (props: TPurchasesTableProps): ReactElement => {
                     ))}
                 </TableBody>
             </Table>
+            <TablePagination
+                rowsPerPageOptions={ PURCHASE_COUNT_ON_PAGE }
+                component="div"
+                count={ -1 }
+                rowsPerPage={ countOnPage }
+                page={ page }
+                onPageChange={ onChangePage }
+                onRowsPerPageChange={ onChangeCountOnPage }
+                labelRowsPerPage="Трат на странице"
+                sx={ {
+                    '& .MuiTablePagination-displayedRows': { display: 'none' }
+                } }
+                slotProps={ {
+                    actions: {
+                        nextButton: { disabled: !hasNextPage }
+                    }
+                } }
+            />
         </TableContainer>
     );
 };
