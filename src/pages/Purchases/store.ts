@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, type IReactionDisposer } from 'mobx';
 import { api } from 'api';
-import { purchasesValidator, type TNewPurchase, type TPurchase, type TPurchaseParams, type TPurchaseSortBy, type TSortDirection } from 'entities';
+import { purchasesValidator, type TNewPurchase, type TPurchase, type TPurchaseParams, type TPurchaseResponse, type TPurchaseSortBy, type TSortDirection } from 'entities';
 import { LoadingStore } from 'stores';
 import { PURCHASE_COUNT_ON_PAGE } from './PurchasesTable';
 
@@ -54,8 +54,8 @@ export class PurchasesStore {
         );
     };
 
-    save = (purchases: TPurchase[]): void => {
-        this.purchases = purchases;
+    save = (response: TPurchaseResponse): void => {
+        this.purchases = response.content;
         this.hasNextPage = this.purchases.length === this.countOnPage;
     };
 

@@ -10,7 +10,7 @@ import { RegistrationForm, useRegistrationForm } from './RegistrationForm';
 export const Registration = observer(() => {
     const store = useLocalObservable(() => new RegistrationStore());
     const form = useRegistrationForm();
-    const onSubmit = form.handleSubmit(store.registration);
+    const onSubmit = form.handleSubmit((data) => store.registration({ username: data.username, password: data.password }));
     const isAuthorized = useAuth();
 
     if (isAuthorized) {
