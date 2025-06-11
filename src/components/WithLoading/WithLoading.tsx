@@ -1,8 +1,8 @@
 import { Box, CircularProgress } from '@mui/material';
-import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
 import type { TWithLoadingProps } from './types';
 
-export const WithLoading = (props: TWithLoadingProps): ReactElement => {
+export const WithLoading = (props: TWithLoadingProps): ReactNode => {
     const { isLoading, children } = props;
 
     if (isLoading) {
