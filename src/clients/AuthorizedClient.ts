@@ -27,9 +27,9 @@ export class AuthorizedClient extends Client {
         const { status, config } = error.response;
 
         switch (status) {
-        // case 401:
-        //     return Auth.instance.refresh()
-        //         .then(() => this.instance(config));
+        case 401:
+            return Auth.instance.refresh()
+                .then(() => this.instance(config));
         default:
             return Promise.reject(error);
         }

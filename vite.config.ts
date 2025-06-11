@@ -11,7 +11,15 @@ export default defineConfig({
                 target: 'http://192.168.1.101:8087/my_budget',
                 changeOrigin: true,
                 secure: false,
-                rewrite: (path) => path.replace(/^\/api/, ''),
+                ws: true,
+                rewrite: (path) => {
+                    console.log(path);
+                    return path.replace(/^\/api/, '');
+                }
+            },
+            '/ws': {
+                target: 'ws://192.168.1.101:8087/my_budget',
+                ws: true
             },
         }
     },

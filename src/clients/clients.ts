@@ -1,6 +1,7 @@
 import { AuthorizedClient } from './AuthorizedClient';
 import { RefreshClient } from './RefreshClient';
 import { UnauthorizedClient } from './UnauthorizedClient';
+import { WebsocketClient } from './WebsocketClient';
 
 class Clients {
     private static _unauthorized: UnauthorizedClient;
@@ -25,6 +26,14 @@ class Clients {
         Clients._refresh = Clients._refresh || new RefreshClient();
 
         return Clients._refresh;
+    }
+
+    private static _websocket: WebsocketClient;
+
+    static get websocket(): WebsocketClient {
+        Clients._websocket = Clients._websocket || new WebsocketClient();
+
+        return Clients._websocket;
     }
 }
 

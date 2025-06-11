@@ -2,17 +2,25 @@ import { BarChart, DonutLarge } from '@mui/icons-material';
 import type { TReportBar, TReportColors } from './types';
 
 export const REPORT_BARS: TReportBar[] = [
-    { dataKey: 'CLOTHE', fill: 'green' },
+    { dataKey: 'CLOTHING', fill: 'green' },
     { dataKey: 'EDUCATION', fill: 'red' },
     { dataKey: 'ENTERTAINMENT', fill: 'blue' },
     { dataKey: 'FOOD', fill: 'orange' },
+    { dataKey: 'HOUSING', fill: 'gray' },
+    { dataKey: 'TRANSPORTATION', fill: 'pink' },
+    { dataKey: 'HEALTHCARE', fill: 'brown' },
+    { dataKey: 'UTILITIES', fill: 'yellow' },
 ];
 
 export const REPORT_COLORS: TReportColors = {
-    CLOTHE: 'green',
+    CLOTHING: 'green',
     EDUCATION: 'red',
     ENTERTAINMENT: 'blue',
-    FOOD: 'orange'
+    FOOD: 'orange',
+    HOUSING: 'gray',
+    TRANSPORTATION: 'pink',
+    HEALTHCARE: 'brown',
+    UTILITIES: 'yellow'
 };
 
 export const PAGES = [

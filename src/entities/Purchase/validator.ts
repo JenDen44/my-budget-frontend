@@ -1,4 +1,4 @@
-import { purchasesSchema } from './schema';
-import type { TPurchase } from './types';
+import { purchasesResponseSchema } from './schema';
+import type { TPurchaseResponse } from './types';
 
-export const purchasesValidator = (data: unknown): Promise<TPurchase[]> => purchasesSchema.parseAsync(data);
+export const purchasesValidator = (data: unknown): Promise<TPurchaseResponse> => purchasesResponseSchema.parseAsync(data);

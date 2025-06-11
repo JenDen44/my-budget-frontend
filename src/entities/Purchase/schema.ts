@@ -1,10 +1,15 @@
 import { z } from 'zod';
+import { paginationResponseSchema } from 'entities/Pagination';
 
 export const purchaseCategorySchema = z.union([
     z.literal('FOOD'),
-    z.literal('CLOTHE'),
+    z.literal('CLOTHING'),
     z.literal('EDUCATION'),
     z.literal('ENTERTAINMENT'),
+    z.literal('HOUSING'),
+    z.literal('TRANSPORTATION'),
+    z.literal('HEALTHCARE'),
+    z.literal('UTILITIES'),
 ], { required_error: 'Выберите категорию' });
 
 export const purchaseSchema = z.object({
@@ -20,4 +25,6 @@ export const purchaseSchema = z.object({
     return { date: new Date(purchaseDate), ...other };
 });
 
-export const purchasesSchema = purchaseSchema.array();
+export const purchasesResponseSchema = paginationResponseSchema.merge(z.object({
+    content: purchaseSchema.array()
+}));
