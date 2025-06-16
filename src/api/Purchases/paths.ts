@@ -1,7 +1,9 @@
-class PurchasesPaths {
-    static purchases = '/api/purchases';
+import { paths } from 'clients';
 
-    static getPurchaseById = (id: number): string => `/api/purchases/${id}`;
+class PurchasesPaths {
+    static purchases = `${paths.API_PATH}/purchases`;
+
+    static getPurchaseById = (id: number): string => `${paths.API_PATH}/purchases/${id}`;
 }
 
 export const purchasesPaths = PurchasesPaths;

@@ -27,11 +27,14 @@ RUN npm run build
 # Используем nginx для обслуживания статических файлов
 FROM nginx:alpine
 
+# Копируем кастомную конфигурацию Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Копируем собранные файлы из builder в nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Открываем порт 80
-EXPOSE 80
+# Открываем порт
+EXPOSE 3000
 
 # Запускаем nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,7 +1,9 @@
-class ReportsPaths {
-    static reportsByDate = '/api/reports/table';
+import { paths } from 'clients';
 
-    static reportsByCategory = '/api/reports/chart';
+class ReportsPaths {
+    static reportsByDate = `${paths.API_PATH}/reports/table`;
+
+    static reportsByCategory = `${paths.API_PATH}/reports/chart`;
 }
 
 export const reportsPaths = ReportsPaths;

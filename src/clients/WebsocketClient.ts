@@ -1,6 +1,7 @@
 import { Auth } from 'auth';
 import type { TTokens } from 'entities';
 import type { TWebsocketSubscriber } from './types';
+import { paths } from './paths';
 
 export class WebsocketClient {
     private token?: string;
@@ -38,7 +39,7 @@ export class WebsocketClient {
     };
 
     private init = (token: string): void => {
-        this.webSocket = new WebSocket('/ws');
+        this.webSocket = new WebSocket(paths.WS_PATH);
         this.webSocket.onopen = (): void => {
             console.log('WEBSOKET OPEN');
 
