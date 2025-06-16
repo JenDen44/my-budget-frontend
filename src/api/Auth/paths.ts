@@ -1,9 +1,11 @@
+import { paths } from 'clients';
+
 class AuthPaths {
-    static login = '/api/login';
+    static login = `${paths.API_PATH}/login`;
 
-    static registration = '/api/register';
+    static registration = `${paths.API_PATH}/register`;
 
-    static refresh = '/api/refresh';
+    static refresh = `${paths.API_PATH}/refresh`;
 }
 
 export const authPaths = AuthPaths;
