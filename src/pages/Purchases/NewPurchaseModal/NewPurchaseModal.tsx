@@ -3,7 +3,8 @@ import { FormProvider } from 'react-hook-form';
 import type { ReactElement } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { useLoading } from 'hooks';
-import { PurchaseForm, usePurchaseForm, purchaseFormValidator } from '../PurchaseForm';
+import { errorValidator } from 'entities';
+import { PurchaseForm, usePurchaseForm, purchaseFormValidator, type TPurchaseFormValue } from '../PurchaseForm';
 import type { TNewPurchaseModalProps } from './types';
 
 export const NewPurchaseModal = (props: TNewPurchaseModalProps): ReactElement => {
@@ -11,10 +12,19 @@ export const NewPurchaseModal = (props: TNewPurchaseModalProps): ReactElement =>
     const { isLoading, byPromise } = useLoading();
     const form = usePurchaseForm();
     const onClose = (): void => {
-        form.reset({});
+        form.reset({ date: new Date(), category: 'FOOD' });
         onCloseProp();
     };
-    const onSubmit = form.handleSubmit((data) => byPromise(purchaseFormValidator(data).then(onCreate)).then(onClose));
+    const onSubmit = form.handleSubmit((data) =>
+        byPromise(purchaseFormValidator(data).then(onCreate))
+            .then(onClose)
+            .catch(errorValidator)
+            .then((error) => {
+                if (error?.code == 422) {
+                    error.fields?.forEach((errorField) => form.setError(errorField.field as keyof TPurchaseFormValue, { message: errorField.message }) );
+                }
+            })
+    );
 
     return (
         <Dialog

@@ -4,13 +4,22 @@ import { Box, Link, Paper, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Navigate, Link as RouterLink } from 'react-router-dom';
 import { useAuth } from 'auth';
+import { errorValidator } from 'entities';
 import { RegistrationStore } from './store';
-import { RegistrationForm, useRegistrationForm } from './RegistrationForm';
+import { RegistrationForm, useRegistrationForm, type TRegistrationFormValue } from './RegistrationForm';
 
 export const Registration = observer(() => {
     const store = useLocalObservable(() => new RegistrationStore());
     const form = useRegistrationForm();
-    const onSubmit = form.handleSubmit((data) => store.registration({ username: data.username, password: data.password }));
+    const onSubmit = form.handleSubmit((data) =>
+        store.registration({ username: data.username, password: data.password })
+            .catch(errorValidator)
+            .then((error) => {
+                if ('code' in error && error?.code == 422) {
+                    error.fields?.forEach((errorField) => form.setError(errorField.field as keyof TRegistrationFormValue, { message: errorField.message }) );
+                }
+            })
+    );
     const isAuthorized = useAuth();
 
     if (isAuthorized) {

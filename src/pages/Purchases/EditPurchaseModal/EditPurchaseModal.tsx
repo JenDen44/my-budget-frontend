@@ -3,7 +3,8 @@ import { FormProvider } from 'react-hook-form';
 import { useEffect, type ReactElement } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { useLoading } from 'hooks';
-import { PurchaseForm, usePurchaseForm, purchaseFormValidator } from '../PurchaseForm';
+import { errorValidator } from 'entities';
+import { PurchaseForm, usePurchaseForm, purchaseFormValidator, type TPurchaseFormValue } from '../PurchaseForm';
 import type { TEditPurchaseModalProps } from './types';
 
 export const EditPurchaseModal = (props: TEditPurchaseModalProps): ReactElement => {
@@ -18,7 +19,14 @@ export const EditPurchaseModal = (props: TEditPurchaseModalProps): ReactElement 
     };
     const onSubmit = form.handleSubmit((data) => {
         if (purchase) {
-            byPromise(purchaseFormValidator(data).then((parsedData) => onEdit(purchase.id, parsedData))).then(onClose);
+            byPromise(purchaseFormValidator(data).then((parsedData) => onEdit(purchase.id, parsedData)))
+                .then(onClose)
+                .catch(errorValidator)
+                .then((error) => {
+                    if (error?.code == 422) {
+                        error.fields?.forEach((errorField) => form.setError(errorField.field as keyof TPurchaseFormValue, { message: errorField.message }) );
+                    }
+                });
         }
     });
 

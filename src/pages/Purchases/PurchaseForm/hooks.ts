@@ -7,7 +7,8 @@ import { purchaseFormSchema } from './schema';
 
 export const usePurchaseForm = (defaultValues?: TPurchaseFormValue) => useForm({
     defaultValues,
-    resolver: zodResolver(purchaseFormSchema)
+    resolver: zodResolver(purchaseFormSchema),
+    reValidateMode: 'onChange'
 });
 
 export const usePurchaseFormFields = () => {
